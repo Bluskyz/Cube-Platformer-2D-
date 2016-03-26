@@ -9,7 +9,14 @@ namespace JakeJumper
 {
     public class Sprite
     {
-        public Texture2D Image;
+        private ThemeTextureSet imageSet;
+
+        public ThemeTextureSet ImageSet
+        {
+            get { return imageSet; }
+            set { imageSet = value; }
+        }
+
         public Vector2 Position;
         public Vector2 Size;
         public Color Tint;
@@ -17,9 +24,9 @@ namespace JakeJumper
         public float Layer = 0;
         public SpriteEffects SpriteEffects;
 
-        public Sprite(Texture2D image, Vector2 position, Vector2 size, Color tint)
+        public Sprite(ThemeTextureSet image, Vector2 position, Vector2 size, Color tint)
         {
-            Image = image;
+            ImageSet = image;
             Position = position;
             Size = size;
             Tint = tint;
@@ -34,7 +41,7 @@ namespace JakeJumper
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Image, Position, null, Tint, 0, Vector2.Zero, Size / new Vector2(Image.Width, Image.Height), SpriteEffects, Layer);
+            spriteBatch.Draw(ImageSet.CurrentImage, Position, null, Tint, 0, Vector2.Zero, Size / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
         }
     }
 }

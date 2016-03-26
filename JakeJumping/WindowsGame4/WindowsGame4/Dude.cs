@@ -21,7 +21,7 @@ namespace JakeJumper
         float gravity = .05f;
         float jumpPower = .5f;
 
-        public Dude(Texture2D image, Vector2 position, Vector2 size, Color tint)
+        public Dude(ThemeTextureSet image, Vector2 position, Vector2 size, Color tint)
             : base(image, position, size, tint)
         {
             Layer = .5f;
@@ -31,7 +31,7 @@ namespace JakeJumper
         {
             if (ks.IsKeyDown(Keys.Right))
             {
-                SpriteEffects = Microsoft.Xna.Framework.Graphics.SpriteEffects.None;
+                SpriteEffects = SpriteEffects.None;
                 int newX = (int)(Position.X + 1 + _moveSpeed);
                 if (!Game1.mapTiles.ContainsKey(new Vector2(newX, (int)Position.Y + .01f)) &&
                     !Game1.mapTiles.ContainsKey(new Vector2(newX, (int)(Position.Y - .01f) + 1)))
@@ -43,9 +43,9 @@ namespace JakeJumper
                     Position.X = newX - 1;
                 }
             }
-            else if (ks.IsKeyDown(Keys.Left))
+            if (ks.IsKeyDown(Keys.Left))
             {
-                SpriteEffects = Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally;
+                SpriteEffects = SpriteEffects.FlipHorizontally;
 
                 int newX = (int)(Position.X - _moveSpeed);
                 if (!Game1.mapTiles.ContainsKey(new Vector2(newX, (int)Position.Y + .01f)) &&
@@ -59,8 +59,6 @@ namespace JakeJumper
                 }
             }
 
-
-
             if (canJump && ks.IsKeyDown(Keys.Up) && _lastks.IsKeyUp(Keys.Up) && jumpCount < 2)
             {
                 jumpCount++;
@@ -72,7 +70,7 @@ namespace JakeJumper
 
             if (YMovement > 0)
             {
-                int newY = (int)(Position.Y + _moveSpeed + 1);
+                int newY = (int)(Position.Y + YMovement + 1);
                 if (!Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X + .01f), newY)) &&
                     !Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X - .01f) + 1, newY)))
                 {
@@ -88,7 +86,7 @@ namespace JakeJumper
             }
             else
             {
-                int newY = (int)(Position.Y - _moveSpeed);
+                int newY = (int)(Position.Y + YMovement);
                 if (!Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X + .01f), newY)) &&
                     !Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X - .01f) + 1, newY)))
                 {

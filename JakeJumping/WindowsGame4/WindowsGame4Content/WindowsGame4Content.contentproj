@@ -79,8 +79,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backround Brick.png">
-      <Name>Backround Brick</Name>
+    <Compile Include="Background Brick.png">
+      <Name>Background Brick</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -158,6 +158,13 @@
   <ItemGroup>
     <Compile Include="Cubeverse.png">
       <Name>Cubeverse</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Detail.png">
+      <Name>Detail</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

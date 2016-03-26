@@ -9,7 +9,7 @@ namespace JakeJumper
 {
     public class LavaTile : Sprite
     {
-        public LavaTile(Texture2D image, Vector2 position)
+        public LavaTile(ThemeTextureSet image, Vector2 position)
             :base(image, position, Vector2.One, Color.White)
         {
             Layer = 1;

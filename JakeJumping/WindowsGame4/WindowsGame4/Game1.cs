@@ -33,7 +33,7 @@ namespace JakeJumper
 
         Dude myDude;
 
-        bool simpleTheme = true;
+        bool simpleTheme = false;
 
         public Game1()
         {
@@ -53,6 +53,8 @@ namespace JakeJumper
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            ThemeTextureSets.Initialize(Content);
+
             IsMouseVisible = true;
             int totalPixels = 20;
 
@@ -67,7 +69,7 @@ namespace JakeJumper
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData<Color>(new Color[] { Color.White });
-            maptexture = Content.Load<Texture2D>("KevinsMap#2");
+            maptexture = Content.Load<Texture2D>("Cubeverse");
 
             Color[] mapColors = new Color[maptexture.Width * maptexture.Height];
             maptexture.GetData<Color>(mapColors);
@@ -78,73 +80,45 @@ namespace JakeJumper
                 {
                     Color mapColor = mapColors[x + y * maptexture.Width];
                     Vector2 tilePosition = new Vector2(x, y);
-                    
-                    if(simpleTheme == false)
+
+                    if (simpleTheme == false)
                     {
 
-                        mapBackgrounds.Add(new Sprite(Content.Load<Texture2D>("Biege"), tilePosition, Vector2.One, Color.White));
-
-                     if (mapColor == new Color(0, 0, 0, 255))
-                     {
-                         mapTiles.Add(tilePosition, new Sprite(Content.Load<Texture2D>("Red"), tilePosition, Vector2.One, Color.LightGray));
-                     }
-
-                     else if (mapColor == new Color(255, 0, 0, 255))
-                     {
-                         mapTiles.Add(tilePosition, new LavaTile(Content.Load<Texture2D>("Lava"), tilePosition));
-                         mapTiles.Add(new Vector2(tilePosition.X + .1f, tilePosition.Y), new Sprite(pixel, tilePosition, Vector2.One, Color.Red));
-                     }
-
-                     else if (mapColor == new Color(0, 0, 255, 255))
-                     {
-                         myDude = new Dude(Content.Load<Texture2D>("Blue"), tilePosition, new Vector2(1, 1), Color.White);
-                     }
-
-                     else if (mapColor == new Color(100, 0, 0, 255))
-                     {
-                         mapBackgrounds.Add(new Sprite(Content.Load<Texture2D>("Spikes"), tilePosition, Vector2.One, Color.LightGray));
-                     }
-
-
-                    }
-
-                    else
-                    {
-                        mapBackgrounds.Add(new Sprite(Content.Load<Texture2D>("Backround Brick"), tilePosition, Vector2.One, Color.White));
+                        mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Background], tilePosition, Vector2.One, Color.White));
 
                         if (mapColor == new Color(0, 0, 0, 255))
                         {
-                            mapTiles.Add(tilePosition, new Sprite(Content.Load<Texture2D>("Stone"), tilePosition, Vector2.One, Color.LightGray));
+                            mapTiles.Add(tilePosition, new Sprite(ThemeTextureSets.Sets[BlockType.Terrian], tilePosition, Vector2.One, Color.LightGray));
                         }
 
                         else if (mapColor == new Color(255, 0, 0, 255))
                         {
-                            mapTiles.Add(tilePosition, new LavaTile(Content.Load<Texture2D>("Lava"), tilePosition));
-                            mapTiles.Add(new Vector2(tilePosition.X + .1f, tilePosition.Y), new Sprite(pixel, tilePosition, Vector2.One, Color.Red));
+                            mapTiles.Add(tilePosition, new LavaTile(ThemeTextureSets.Sets[BlockType.Lava], tilePosition));
+                            mapTiles.Add(new Vector2(tilePosition.X + .1f, tilePosition.Y),
+                                new Sprite(ThemeTextureSets.Sets[BlockType.Lava], tilePosition, Vector2.One, Color.Red));
                         }
 
                         else if (mapColor == new Color(0, 0, 255, 255))
                         {
-                            myDude = new Dude(Content.Load<Texture2D>("Face#1"), tilePosition, new Vector2(1, 1), Color.White);
+                            myDude = new Dude(ThemeTextureSets.Sets[BlockType.Character], tilePosition, new Vector2(1, 1), Color.White);
                         }
 
                         else if (mapColor == new Color(100, 0, 0, 255))
                         {
-                            mapBackgrounds.Add(new Sprite(Content.Load<Texture2D>("Spikes"), tilePosition, Vector2.One, Color.LightGray));
+                            mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Spike], tilePosition, Vector2.One, Color.LightGray));
                         }
-
                         else if (mapColor == new Color(0, 255, 0, 255))
                         {
-                            mapTiles.Add(tilePosition, new Sprite(Content.Load<Texture2D>("Metal"), tilePosition, Vector2.One, Color.LightGray));
+                            mapTiles.Add(tilePosition, new Sprite(ThemeTextureSets.Sets[BlockType.DetailTerrian], tilePosition, Vector2.One, Color.LightGray));
                         }
 
                         else if (mapColor == new Color(0, 200, 0, 255))
                         {
-                            mapBackgrounds.Add(new Sprite(Content.Load<Texture2D>("Chain"), tilePosition, Vector2.One, Color.LightGray));
+                            mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.HangingObject], tilePosition, Vector2.One, Color.LightGray));
                         }
 
                     }
-          
+
                 }
             }
             if (myDude == null)
@@ -156,7 +130,14 @@ namespace JakeJumper
         protected override void Update(GameTime gameTime)
         {
             keyboard = Keyboard.GetState();
-
+            if (keyboard.IsKeyDown(Keys.A))
+            {
+                Settings.Theme = Theme.Medieval;
+            }
+            else
+            {
+                Settings.Theme = Theme.Simple;
+            }
             myDude.Update(gameTime, keyboard);
             cameraPosition = new Vector2(myDude.Position.X, myDude.Position.Y);//- (myDude.HitBox.Height * 6));
             base.Update(gameTime);

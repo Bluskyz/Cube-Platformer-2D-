@@ -11,7 +11,7 @@ namespace JakeJumper
     {
         public Vector2 CurrentSpeed;
 
-        public MovingSprite(Texture2D image, Vector2 position, Vector2 size, Color color, Vector2 speed) :
+        public MovingSprite(ThemeTextureSet image, Vector2 position, Vector2 size, Color color, Vector2 speed) :
             base(image, position, size, color)
         {
             CurrentSpeed = speed;
