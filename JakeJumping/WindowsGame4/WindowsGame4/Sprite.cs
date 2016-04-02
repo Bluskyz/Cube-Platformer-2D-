@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace JakeJumper
 {
@@ -32,6 +33,14 @@ namespace JakeJumper
             Tint = tint;
             SpriteEffects = Microsoft.Xna.Framework.Graphics.SpriteEffects.None;
             HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+        }
+
+        public bool IsClicked(MouseState ms)
+        {
+
+
+            return /*if*/ HitBox.Contains(ms.X, ms.Y) && ms.LeftButton == ButtonState.Pressed;
+
         }
 
         public virtual void Update(GameTime gameTime)

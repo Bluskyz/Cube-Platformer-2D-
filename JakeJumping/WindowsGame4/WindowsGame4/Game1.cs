@@ -17,11 +17,15 @@ namespace JakeJumper
         Matrix view;
         Matrix projection;
 
+        Sprite pauseButton;
+
         Vector2 cameraPosition = new Vector2(0, 0);
         float cameraRotation = MathHelper.ToRadians(270);
 
         public static Dictionary<Vector2, Sprite> mapTiles = new Dictionary<Vector2, Sprite>();
         public List<Sprite> mapBackgrounds = new List<Sprite>();
+
+
 
         BasicEffect basicEffect;
         KeyboardState keyboard;
@@ -32,8 +36,6 @@ namespace JakeJumper
         Texture2D maptexture;
 
         Dude myDude;
-
-        bool simpleTheme = false;
 
         public Game1()
         {
@@ -54,6 +56,11 @@ namespace JakeJumper
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ThemeTextureSets.Initialize(Content);
+
+            pauseButton = new Sprite(new ThemeTextureSet(
+                new QualityControlTexture2D(Content.Load<Texture2D>("Pause"), Content.Load<Texture2D>("Pause")),
+                new QualityControlTexture2D(Content.Load<Texture2D>("Pause"), Content.Load<Texture2D>("Pause"))),
+                new Vector2(5), new Vector2(75), Color.White);
 
             IsMouseVisible = true;
             int totalPixels = 20;
@@ -81,44 +88,8 @@ namespace JakeJumper
                     Color mapColor = mapColors[x + y * maptexture.Width];
                     Vector2 tilePosition = new Vector2(x, y);
 
-                    if (simpleTheme == false)
-                    {
-
-                        mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Background], tilePosition, Vector2.One, Color.White));
-
-                        if (mapColor == new Color(0, 0, 0, 255))
-                        {
-                            mapTiles.Add(tilePosition, new Sprite(ThemeTextureSets.Sets[BlockType.Terrian], tilePosition, Vector2.One, Color.LightGray));
-                        }
-
-                        else if (mapColor == new Color(255, 0, 0, 255))
-                        {
-                            mapTiles.Add(tilePosition, new LavaTile(ThemeTextureSets.Sets[BlockType.Lava], tilePosition));
-                            mapTiles.Add(new Vector2(tilePosition.X + .1f, tilePosition.Y),
-                                new Sprite(ThemeTextureSets.Sets[BlockType.Lava], tilePosition, Vector2.One, Color.Red));
-                        }
-
-                        else if (mapColor == new Color(0, 0, 255, 255))
-                        {
-                            myDude = new Dude(ThemeTextureSets.Sets[BlockType.Character], tilePosition, new Vector2(1, 1), Color.White);
-                        }
-
-                        else if (mapColor == new Color(100, 0, 0, 255))
-                        {
-                            mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Spike], tilePosition, Vector2.One, Color.LightGray));
-                        }
-                        else if (mapColor == new Color(0, 255, 0, 255))
-                        {
-                            mapTiles.Add(tilePosition, new Sprite(ThemeTextureSets.Sets[BlockType.DetailTerrian], tilePosition, Vector2.One, Color.LightGray));
-                        }
-
-                        else if (mapColor == new Color(0, 200, 0, 255))
-                        {
-                            mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.HangingObject], tilePosition, Vector2.One, Color.LightGray));
-                        }
-
-                    }
-
+                    mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Background], tilePosition, Vector2.One, Color.White));
+                    CreateBlock(mapColor, tilePosition);
                 }
             }
             if (myDude == null)
@@ -127,9 +98,33 @@ namespace JakeJumper
             }
         }
 
+        void CreateBlock(Color color, Vector2 position)
+        {
+            if (ThemeTextureSets.ColorToBlock.ContainsKey(color))
+            {
+                BlockType blockType = ThemeTextureSets.ColorToBlock[color];
+                if (blockType == BlockType.Character)
+                {
+                    myDude = new Dude(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White);
+                }
+                else if (blockType == BlockType.Lava)
+                {
+                    mapTiles.Add(position, new LavaTile(ThemeTextureSets.Sets[BlockType.Lava], position));
+                    mapTiles.Add(new Vector2(position.X + .1f, position.Y),
+                        new Sprite(ThemeTextureSets.Sets[BlockType.Lava], position, Vector2.One, Color.Red));
+                }
+                else
+                {
+                    mapTiles.Add(position, new Sprite(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White));
+                }
+            }
+        }
+
         protected override void Update(GameTime gameTime)
         {
             keyboard = Keyboard.GetState();
+            MouseState mouse = Mouse.GetState();
+
             if (keyboard.IsKeyDown(Keys.A))
             {
                 Settings.Theme = Theme.Medieval;
@@ -151,12 +146,15 @@ namespace JakeJumper
             view = Matrix.CreateLookAt(new Vector3(cameraPosition, -10), new Vector3(cameraPosition, 0), new Vector3((float)Math.Cos(cameraRotation), (float)Math.Sin(cameraRotation), 0));
             basicEffect.View = view;
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, basicEffect);
 
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, basicEffect);
             foreach (Sprite tile in mapBackgrounds)
             {
                 tile.Draw(spriteBatch);
             }
+
+
 
             spriteBatch.End();
 
@@ -167,6 +165,14 @@ namespace JakeJumper
                 tile.Draw(spriteBatch);
             }
             myDude.Draw(spriteBatch);
+            spriteBatch.End();
+
+
+            spriteBatch.Begin();
+
+            pauseButton.Draw(spriteBatch);
+
+
             spriteBatch.End();
 
 
