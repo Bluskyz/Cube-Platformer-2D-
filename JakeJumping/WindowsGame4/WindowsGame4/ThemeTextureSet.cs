@@ -45,7 +45,7 @@ namespace JakeJumper
 
             ColorToBlock.Add(new Color(0, 255, 0, 255), BlockType.DetailTerrian); 
             Sets.Add(BlockType.DetailTerrian,
-                       new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Detail"), Content.Load<Texture2D>("Detail")),
+                       new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Metal"), Content.Load<Texture2D>("Metal")),
                                            new QualityControlTexture2D(Content.Load<Texture2D>("Metal"), Content.Load<Texture2D>("Metal"))));
 
             
@@ -66,7 +66,7 @@ namespace JakeJumper
 
             ColorToBlock.Add(new Color(0, 200, 0, 255), BlockType.HangingObject); 
             Sets.Add(BlockType.HangingObject,
-                       new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Chain"), Content.Load<Texture2D>("Chain")),
+                       new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Detail"), Content.Load<Texture2D>("Detail")),
                                            new QualityControlTexture2D(Content.Load<Texture2D>("Chain"), Content.Load<Texture2D>("Chain"))));
         }
     }
