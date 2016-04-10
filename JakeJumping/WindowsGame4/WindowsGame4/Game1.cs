@@ -113,6 +113,12 @@ namespace JakeJumper
                     mapTiles.Add(new Vector2(position.X + .1f, position.Y),
                         new Sprite(ThemeTextureSets.Sets[BlockType.Lava], position, Vector2.One, Color.Red));
                 }
+
+                else if (blockType == BlockType.HangingObject)
+                {
+                    mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.HangingObject], position, Vector2.One, Color.White));
+                }
+
                 else
                 {
                     mapTiles.Add(position, new Sprite(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White));
