@@ -20,6 +20,7 @@ namespace JakeJumper
 
         float gravity = .05f;
         float jumpPower = .5f;
+       
 
         public Dude(ThemeTextureSet image, Vector2 position, Vector2 size, Color tint)
             : base(image, position, size, tint)

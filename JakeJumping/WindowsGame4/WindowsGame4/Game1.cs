@@ -22,6 +22,9 @@ namespace JakeJumper
         Vector2 cameraPosition = new Vector2(0, 0);
         float cameraRotation = MathHelper.ToRadians(270);
 
+       
+        
+
         public static Dictionary<Vector2, Sprite> mapTiles = new Dictionary<Vector2, Sprite>();
         public List<Sprite> mapBackgrounds = new List<Sprite>();
 
@@ -60,7 +63,7 @@ namespace JakeJumper
             pauseButton = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("Pause"), Content.Load<Texture2D>("Pause")),
                 new QualityControlTexture2D(Content.Load<Texture2D>("Pause"), Content.Load<Texture2D>("Pause"))),
-                new Vector2(5), new Vector2(75), Color.White);
+                new Vector2(15), new Vector2(70),  Color.White);
 
             IsMouseVisible = true;
             int totalPixels = 20;
@@ -130,6 +133,11 @@ namespace JakeJumper
         {
             keyboard = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();
+
+            //if(pauseButton.IsClicked(mouse))
+            //{
+            //    Settings.Theme = Theme.Medieval;
+            //}
 
             if (keyboard.IsKeyDown(Keys.A))
             {
