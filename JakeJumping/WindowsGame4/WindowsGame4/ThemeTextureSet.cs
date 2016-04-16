@@ -61,7 +61,7 @@ namespace JakeJumper
 
             ColorToBlock.Add(new Color(100, 0, 0, 255), BlockType.Spike); 
             Sets.Add(BlockType.Spike,
-                    new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Spikes"), Content.Load<Texture2D>("Spikes")),
+                    new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Triangle"), Content.Load<Texture2D>("Triangle")),
                                         new QualityControlTexture2D(Content.Load<Texture2D>("Spikes"), Content.Load<Texture2D>("Spikes"))));
 
             ColorToBlock.Add(new Color(0, 200, 0, 255), BlockType.HangingObject); 

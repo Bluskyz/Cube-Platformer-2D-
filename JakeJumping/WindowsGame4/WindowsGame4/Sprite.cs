@@ -10,7 +10,7 @@ namespace JakeJumper
 {
     public class Sprite
     {
-        private ThemeTextureSet imageSet;
+        protected ThemeTextureSet imageSet;
 
         public ThemeTextureSet ImageSet
         {
@@ -22,8 +22,11 @@ namespace JakeJumper
         public Vector2 Size;
         public Color Tint;
         public Rectangle HitBox;
+        public Rectangle sourceRectangle;
         public float Layer = 0;
         public SpriteEffects SpriteEffects;
+
+       
 
         public Sprite(ThemeTextureSet image, Vector2 position, Vector2 size, Color tint)
         {
@@ -37,10 +40,7 @@ namespace JakeJumper
 
         public bool IsClicked(MouseState ms)
         {
-
-
             return /*if*/ HitBox.Contains(ms.X, ms.Y) && ms.LeftButton == ButtonState.Pressed;
-
         }
 
         public virtual void Update(GameTime gameTime)
