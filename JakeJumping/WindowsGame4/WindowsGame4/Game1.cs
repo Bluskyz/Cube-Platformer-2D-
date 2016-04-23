@@ -18,6 +18,7 @@ namespace JakeJumper
         Matrix projection;
 
         Sprite pauseButton;
+        AnimatedSprite characterDeath;
 
         Vector2 cameraPosition = new Vector2(0, 0);
         float cameraRotation = MathHelper.ToRadians(270);
@@ -25,8 +26,7 @@ namespace JakeJumper
        
         
 
-        public static Dictionary<Vector2, Sprite> mapTiles = new Dictionary<Vector2, Sprite>();
-        public List<Sprite> mapBackgrounds = new List<Sprite>();
+        public static Dictionary<Vector2, Tile> mapTiles = new Dictionary<Vector2, Tile>();
 
 
 
@@ -65,6 +65,29 @@ namespace JakeJumper
                 new QualityControlTexture2D(Content.Load<Texture2D>("Pause"), Content.Load<Texture2D>("Pause"))),
                 new Vector2(15), new Vector2(70),  Color.White);
 
+            characterDeath = new AnimatedSprite(new ThemeTextureSet(
+                new QualityControlTexture2D(Content.Load<Texture2D>("Explosion"), Content.Load<Texture2D>("Explosion")),
+                new QualityControlTexture2D(Content.Load<Texture2D>("Explosion"), Content.Load<Texture2D>("Explosion"))),
+                new Vector2(100), new Vector2(100), Color.White);
+
+            characterDeath.AddFrame(new Rectangle(13,13,6,6));
+            characterDeath.AddFrame(new Rectangle(44,12,8,8));
+            characterDeath.AddFrame(new Rectangle(75,11,10,10));
+            characterDeath.AddFrame(new Rectangle(106,10,12,12));
+            characterDeath.AddFrame(new Rectangle(9,41,14,14));
+            characterDeath.AddFrame(new Rectangle(40,40,16,16));
+            characterDeath.AddFrame(new Rectangle(71,39,18,18));
+            characterDeath.AddFrame(new Rectangle(102,38,20,20));
+            characterDeath.AddFrame(new Rectangle(5,69,22,22));
+            characterDeath.AddFrame(new Rectangle(35,67,25,25));
+            characterDeath.AddFrame(new Rectangle(67,67,26,26));
+            characterDeath.AddFrame(new Rectangle(98,66,28,28));
+            characterDeath.AddFrame(new Rectangle(1,97,30,30));
+            characterDeath.AddFrame(new Rectangle(34,98,30,30));
+            characterDeath.AddFrame(new Rectangle(71,103,25,25));
+            characterDeath.AddFrame(new Rectangle(113,113,15,15));
+
+
             IsMouseVisible = true;
             int totalPixels = 20;
 
@@ -91,7 +114,7 @@ namespace JakeJumper
                     Color mapColor = mapColors[x + y * maptexture.Width];
                     Vector2 tilePosition = new Vector2(x, y);
 
-                    mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Background], tilePosition, Vector2.One, Color.White));
+                    //mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Background], tilePosition, Vector2.One, Color.White));
                     CreateBlock(mapColor, tilePosition);
                 }
             }
@@ -112,19 +135,13 @@ namespace JakeJumper
                 }
                 else if (blockType == BlockType.Lava)
                 {
-                    mapTiles.Add(position, new LavaTile(ThemeTextureSets.Sets[BlockType.Lava], position));
+                    mapTiles.Add(position, new LavaTile(ThemeTextureSets.Sets[blockType], position));
                     mapTiles.Add(new Vector2(position.X + .1f, position.Y),
-                        new Sprite(ThemeTextureSets.Sets[BlockType.Lava], position, Vector2.One, Color.Red));
+                        new Tile(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.Red, blockType));
                 }
-
-                else if (blockType == BlockType.HangingObject)
-                {
-                    mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.HangingObject], position, Vector2.One, Color.White));
-                }
-
                 else
                 {
-                    mapTiles.Add(position, new Sprite(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White));
+                    mapTiles.Add(position, new Tile(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White, blockType));
                 }
             }
         }
@@ -133,8 +150,10 @@ namespace JakeJumper
         {
             keyboard = Keyboard.GetState();
             MouseState mouse = Mouse.GetState();
+            
+            //IF THE PAUSE BUTTON IS CLICK THEN...
 
-            //if(pauseButton.IsClicked(mouse))
+            //if (pauseButton.IsClicked(mouse))
             //{
             //    Settings.Theme = Theme.Medieval;
             //}
@@ -148,6 +167,7 @@ namespace JakeJumper
                 Settings.Theme = Theme.Simple;
             }
             myDude.Update(gameTime, keyboard);
+            characterDeath.Update(gameTime);
             cameraPosition = new Vector2(myDude.Position.X, myDude.Position.Y);//- (myDude.HitBox.Height * 6));
             base.Update(gameTime);
         }
@@ -163,10 +183,10 @@ namespace JakeJumper
 
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, basicEffect);
-            foreach (Sprite tile in mapBackgrounds)
+            /*foreach (Sprite tile in mapBackgrounds)
             {
                 tile.Draw(spriteBatch);
-            }
+            }*/
 
 
 
@@ -185,6 +205,7 @@ namespace JakeJumper
             spriteBatch.Begin();
 
             pauseButton.Draw(spriteBatch);
+            characterDeath.Draw(spriteBatch);
 
 
             spriteBatch.End();

@@ -20,7 +20,7 @@ namespace JakeJumper
 
         float gravity = .05f;
         float jumpPower = .5f;
-       
+
 
         public Dude(ThemeTextureSet image, Vector2 position, Vector2 size, Color tint)
             : base(image, position, size, tint)
@@ -34,8 +34,12 @@ namespace JakeJumper
             {
                 SpriteEffects = SpriteEffects.None;
                 int newX = (int)(Position.X + 1 + _moveSpeed);
-                if (!Game1.mapTiles.ContainsKey(new Vector2(newX, (int)Position.Y + .01f)) &&
-                    !Game1.mapTiles.ContainsKey(new Vector2(newX, (int)(Position.Y - .01f) + 1)))
+
+                Tile tileTopRight = Game1.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
+                Tile tileBottomRight = Game1.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
+
+                if ((tileTopRight.BlockType != BlockType.Background || tileTopRight.BlockType != BlockType.HangingObject || tileTopRight.BlockType != BlockType.DetailTerrian) &&
+                    (tileBottomRight.BlockType != BlockType.Background || tileBottomRight.BlockType != BlockType.HangingObject || tileBottomRight.BlockType != BlockType.DetailTerrian))
                 {
                     Position.X += _moveSpeed;
                 }
@@ -76,7 +80,7 @@ namespace JakeJumper
                     !Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X - .01f) + 1, newY)))
                 {
                     Position.Y += YMovement;
-                    
+
                 }
                 else
                 {

@@ -84,6 +84,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="ThemeTextureSet.cs" />
+    <Compile Include="Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

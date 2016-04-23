@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace JakeJumper
 {
-    public class LavaTile : Sprite
+    public class LavaTile : Tile
     {
         public LavaTile(ThemeTextureSet image, Vector2 position)
-            :base(image, position, Vector2.One, Color.White)
+            :base(image, position, Vector2.One, Color.White, BlockType.Lava)
         {
             Layer = 1;
         }

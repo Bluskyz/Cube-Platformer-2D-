@@ -22,10 +22,10 @@ namespace JakeJumper
         public Vector2 Size;
         public Color Tint;
         public Rectangle HitBox;
-        public Rectangle sourceRectangle;
+        public Rectangle? sourceRectangle;
         public float Layer = 0;
         public SpriteEffects SpriteEffects;
-
+        public bool IsVisible = true;
        
 
         public Sprite(ThemeTextureSet image, Vector2 position, Vector2 size, Color tint)
@@ -36,6 +36,7 @@ namespace JakeJumper
             Tint = tint;
             SpriteEffects = Microsoft.Xna.Framework.Graphics.SpriteEffects.None;
             HitBox = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
+            sourceRectangle = null;
         }
 
         public bool IsClicked(MouseState ms)
@@ -50,7 +51,10 @@ namespace JakeJumper
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(ImageSet.CurrentImage, Position, null, Tint, 0, Vector2.Zero, Size / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+            if (IsVisible)
+            {
+                spriteBatch.Draw(ImageSet.CurrentImage, Position, sourceRectangle, Tint, 0, Vector2.Zero, Size / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+            }
         }
     }
 }

@@ -34,6 +34,8 @@ namespace JakeJumper
 
         public static void Initialize(ContentManager Content)
         {
+            ColorToBlock.Add(new Color(255, 255, 255, 255), BlockType.Background);
+            ColorToBlock.Add(new Color(0, 0, 0, 0), BlockType.Background);
             Sets.Add(BlockType.Background,
                    new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Biege"), Content.Load<Texture2D>("Biege")),
                                        new QualityControlTexture2D(Content.Load<Texture2D>("Background Brick"), Content.Load<Texture2D>("Background Brick"))));
@@ -48,7 +50,11 @@ namespace JakeJumper
                        new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Metal"), Content.Load<Texture2D>("Metal")),
                                            new QualityControlTexture2D(Content.Load<Texture2D>("Metal"), Content.Load<Texture2D>("Metal"))));
 
-            
+            //ColorToBlock.Add(new Color(0, 254, 0, 255), BlockType.DetailTerrian);
+            //Sets.Add(BlockType.DetailTerrian,
+            //           new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Explosion"), Content.Load<Texture2D>("Explosion")),
+            //                               new QualityControlTexture2D(Content.Load<Texture2D>("Explosion"), Content.Load<Texture2D>("Explosion"))));
+           
             ColorToBlock.Add(new Color(255, 0, 0, 255), BlockType.Lava);
             Sets.Add(BlockType.Lava,
                    new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Lava"), Content.Load<Texture2D>("Lava")),
