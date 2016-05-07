@@ -38,8 +38,8 @@ namespace JakeJumper
                 Tile tileTopRight = Game1.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
                 Tile tileBottomRight = Game1.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
 
-                if ((tileTopRight.BlockType != BlockType.Background || tileTopRight.BlockType != BlockType.HangingObject || tileTopRight.BlockType != BlockType.DetailTerrian) &&
-                    (tileBottomRight.BlockType != BlockType.Background || tileBottomRight.BlockType != BlockType.HangingObject || tileBottomRight.BlockType != BlockType.DetailTerrian))
+                if ((tileTopRight.BlockType == BlockType.Background || tileTopRight.BlockType == BlockType.HangingObject || tileTopRight.BlockType == BlockType.DetailTerrian) &&
+                    (tileBottomRight.BlockType == BlockType.Background || tileBottomRight.BlockType == BlockType.HangingObject || tileBottomRight.BlockType == BlockType.DetailTerrian))
                 {
                     Position.X += _moveSpeed;
                 }
@@ -51,10 +51,13 @@ namespace JakeJumper
             if (ks.IsKeyDown(Keys.Left))
             {
                 SpriteEffects = SpriteEffects.FlipHorizontally;
-
                 int newX = (int)(Position.X - _moveSpeed);
-                if (!Game1.mapTiles.ContainsKey(new Vector2(newX, (int)Position.Y + .01f)) &&
-                    !Game1.mapTiles.ContainsKey(new Vector2(newX, (int)(Position.Y - .01f) + 1)))
+
+                Tile tileTopLeft = Game1.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
+                Tile tileBottomLeft = Game1.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
+
+                if ((tileTopLeft.BlockType == BlockType.Background || tileTopLeft.BlockType == BlockType.HangingObject || tileTopLeft.BlockType == BlockType.DetailTerrian) &&
+                    (tileBottomLeft.BlockType == BlockType.Background || tileBottomLeft.BlockType == BlockType.HangingObject || tileBottomLeft.BlockType == BlockType.DetailTerrian))
                 {
                     Position.X -= _moveSpeed;
                 }
@@ -76,8 +79,12 @@ namespace JakeJumper
             if (YMovement > 0)
             {
                 int newY = (int)(Position.Y + YMovement + 1);
-                if (!Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X + .01f), newY)) &&
-                    !Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X - .01f) + 1, newY)))
+                Tile tileTopFloor = Game1.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
+                Tile tileBottomFloor = Game1.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
+
+
+                if ((tileBottomFloor.BlockType == BlockType.Background || tileBottomFloor.BlockType == BlockType.HangingObject || tileBottomFloor.BlockType == BlockType.DetailTerrian) &&
+                    (tileTopFloor.BlockType == BlockType.Background || tileTopFloor.BlockType == BlockType.HangingObject || tileTopFloor.BlockType == BlockType.DetailTerrian))
                 {
                     Position.Y += YMovement;
 
@@ -92,8 +99,12 @@ namespace JakeJumper
             else
             {
                 int newY = (int)(Position.Y + YMovement);
-                if (!Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X + .01f), newY)) &&
-                    !Game1.mapTiles.ContainsKey(new Vector2((int)(Position.X - .01f) + 1, newY)))
+                Tile tileBottomFloor = Game1.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
+                Tile tileTopFloor = Game1.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
+
+
+                if ((tileBottomFloor.BlockType == BlockType.Background || tileBottomFloor.BlockType == BlockType.HangingObject || tileBottomFloor.BlockType == BlockType.DetailTerrian) &&
+                    (tileTopFloor.BlockType == BlockType.Background || tileTopFloor.BlockType == BlockType.HangingObject || tileTopFloor.BlockType == BlockType.DetailTerrian))
                 {
                     Position.Y += YMovement;
                 }

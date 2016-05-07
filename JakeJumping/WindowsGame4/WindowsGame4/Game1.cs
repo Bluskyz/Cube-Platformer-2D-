@@ -131,6 +131,7 @@ namespace JakeJumper
                 BlockType blockType = ThemeTextureSets.ColorToBlock[color];
                 if (blockType == BlockType.Character)
                 {
+                    mapTiles.Add(position, new Tile(ThemeTextureSets.Sets[BlockType.Background], position, Vector2.One, Color.White, BlockType.Background));
                     myDude = new Dude(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White);
                 }
                 else if (blockType == BlockType.Lava)
