@@ -30,6 +30,8 @@ namespace JakeJumper
 
         public void Update(GameTime gameTime, KeyboardState ks)
         {
+
+            
             if (ks.IsKeyDown(Keys.Right))
             {
                 SpriteEffects = SpriteEffects.None;

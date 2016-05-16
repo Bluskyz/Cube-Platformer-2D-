@@ -11,9 +11,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace JakeJumper
 {
-
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+
+        GameState screen = GameState.InGame;
+
         Matrix view;
         Matrix projection;
 
@@ -122,55 +124,66 @@ namespace JakeJumper
             {
                 throw new ArgumentNullException("Kevin said this guy isnt in the key map!");
             }
+            screen = GameState.Menu;
         }
 
         void CreateBlock(Color color, Vector2 position)
         {
-            if (ThemeTextureSets.ColorToBlock.ContainsKey(color))
-            {
-                BlockType blockType = ThemeTextureSets.ColorToBlock[color];
-                if (blockType == BlockType.Character)
+                if (ThemeTextureSets.ColorToBlock.ContainsKey(color))
                 {
-                    mapTiles.Add(position, new Tile(ThemeTextureSets.Sets[BlockType.Background], position, Vector2.One, Color.White, BlockType.Background));
-                    myDude = new Dude(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White);
+                    BlockType blockType = ThemeTextureSets.ColorToBlock[color];
+                    if (blockType == BlockType.Character)
+                    {
+                        mapTiles.Add(position, new Tile(ThemeTextureSets.Sets[BlockType.Background], position, Vector2.One, Color.White, BlockType.Background));
+                        myDude = new Dude(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White);
+                    }
+                    else if (blockType == BlockType.Lava)
+                    {
+                        mapTiles.Add(position, new LavaTile(ThemeTextureSets.Sets[blockType], position));
+                        mapTiles.Add(new Vector2(position.X + .1f, position.Y),
+                            new Tile(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.Red, blockType));
+                    }
+                    else
+                    {
+                        mapTiles.Add(position, new Tile(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White, blockType));
+                    }
                 }
-                else if (blockType == BlockType.Lava)
-                {
-                    mapTiles.Add(position, new LavaTile(ThemeTextureSets.Sets[blockType], position));
-                    mapTiles.Add(new Vector2(position.X + .1f, position.Y),
-                        new Tile(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.Red, blockType));
-                }
-                else
-                {
-                    mapTiles.Add(position, new Tile(ThemeTextureSets.Sets[blockType], position, Vector2.One, Color.White, blockType));
-                }
-            }
+            
         }
 
         protected override void Update(GameTime gameTime)
         {
-            keyboard = Keyboard.GetState();
-            MouseState mouse = Mouse.GetState();
-            
-            //IF THE PAUSE BUTTON IS CLICK THEN...
 
-            //if (pauseButton.IsClicked(mouse))
-            //{
-            //    Settings.Theme = Theme.Medieval;
-            //}
+            if (screen == GameState.InGame)
+            {
 
-            if (keyboard.IsKeyDown(Keys.A))
-            {
-                Settings.Theme = Theme.Medieval;
+                keyboard = Keyboard.GetState();
+                MouseState mouse = Mouse.GetState();
+
+                //IF THE PAUSE BUTTON IS CLICK THEN...
+
+                if (pauseButton.IsClicked(mouse))
+                {
+                    Settings.Theme = Theme.Medieval;
+                }
+
+                if (keyboard.IsKeyDown(Keys.A))
+                {
+                    Settings.Theme = Theme.Medieval;
+                }
+                else
+                {
+                    Settings.Theme = Theme.Simple;
+                }
+                myDude.Update(gameTime, keyboard);
+                characterDeath.Update(gameTime);
+                cameraPosition = new Vector2(myDude.Position.X, myDude.Position.Y);//- (myDude.HitBox.Height * 6));
+                base.Update(gameTime);
             }
-            else
+            else if(screen == GameState.Menu)
             {
-                Settings.Theme = Theme.Simple;
+
             }
-            myDude.Update(gameTime, keyboard);
-            characterDeath.Update(gameTime);
-            cameraPosition = new Vector2(myDude.Position.X, myDude.Position.Y);//- (myDude.HitBox.Height * 6));
-            base.Update(gameTime);
         }
 
 
@@ -182,37 +195,36 @@ namespace JakeJumper
             basicEffect.View = view;
 
 
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, basicEffect);
-            /*foreach (Sprite tile in mapBackgrounds)
+            if (screen == GameState.InGame)
             {
-                tile.Draw(spriteBatch);
-            }*/
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, basicEffect);
 
+                foreach (Sprite tile in mapTiles.Values)
+                {
+                    tile.Draw(spriteBatch);
+                }
 
+                myDude.Draw(spriteBatch);
+                spriteBatch.End();
 
-            spriteBatch.End();
+                spriteBatch.Begin();
+                pauseButton.Draw(spriteBatch);
+                characterDeath.Draw(spriteBatch);
 
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, basicEffect);
-
-            foreach (Sprite tile in mapTiles.Values)
-            {
-                tile.Draw(spriteBatch);
+                spriteBatch.End();
             }
-            myDude.Draw(spriteBatch);
-            spriteBatch.End();
+            else if (screen == GameState.Menu)
+            {
+
+            }
+            
+         
 
 
-            spriteBatch.Begin();
-
-            pauseButton.Draw(spriteBatch);
-            characterDeath.Draw(spriteBatch);
-
-
-            spriteBatch.End();
-
+           
 
             base.Draw(gameTime);
         }
+        
     }
 }

@@ -23,6 +23,13 @@ namespace JakeJumper
         Medieval
     }
 
+    public enum GameState
+    {
+        InGame,
+        Menu,
+        Pause
+    }
+
     public enum BlockType
     {
         Background,
