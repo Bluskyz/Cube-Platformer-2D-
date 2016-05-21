@@ -37,8 +37,8 @@ namespace JakeJumper
                 SpriteEffects = SpriteEffects.None;
                 int newX = (int)(Position.X + 1 + _moveSpeed);
 
-                Tile tileTopRight = Game1.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
-                Tile tileBottomRight = Game1.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
+                Tile tileTopRight = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
+                Tile tileBottomRight = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
 
                 if ((tileTopRight.BlockType == BlockType.Background || tileTopRight.BlockType == BlockType.HangingObject || tileTopRight.BlockType == BlockType.DetailTerrian) &&
                     (tileBottomRight.BlockType == BlockType.Background || tileBottomRight.BlockType == BlockType.HangingObject || tileBottomRight.BlockType == BlockType.DetailTerrian))
@@ -55,8 +55,8 @@ namespace JakeJumper
                 SpriteEffects = SpriteEffects.FlipHorizontally;
                 int newX = (int)(Position.X - _moveSpeed);
 
-                Tile tileTopLeft = Game1.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
-                Tile tileBottomLeft = Game1.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
+                Tile tileTopLeft = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
+                Tile tileBottomLeft = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
 
                 if ((tileTopLeft.BlockType == BlockType.Background || tileTopLeft.BlockType == BlockType.HangingObject || tileTopLeft.BlockType == BlockType.DetailTerrian) &&
                     (tileBottomLeft.BlockType == BlockType.Background || tileBottomLeft.BlockType == BlockType.HangingObject || tileBottomLeft.BlockType == BlockType.DetailTerrian))
@@ -81,8 +81,8 @@ namespace JakeJumper
             if (YMovement > 0)
             {
                 int newY = (int)(Position.Y + YMovement + 1);
-                Tile tileTopFloor = Game1.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
-                Tile tileBottomFloor = Game1.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
+                Tile tileTopFloor = GameScreen.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
+                Tile tileBottomFloor = GameScreen.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
 
 
                 if ((tileBottomFloor.BlockType == BlockType.Background || tileBottomFloor.BlockType == BlockType.HangingObject || tileBottomFloor.BlockType == BlockType.DetailTerrian) &&
@@ -101,8 +101,8 @@ namespace JakeJumper
             else
             {
                 int newY = (int)(Position.Y + YMovement);
-                Tile tileBottomFloor = Game1.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
-                Tile tileTopFloor = Game1.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
+                Tile tileBottomFloor = GameScreen.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
+                Tile tileTopFloor = GameScreen.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
 
 
                 if ((tileBottomFloor.BlockType == BlockType.Background || tileBottomFloor.BlockType == BlockType.HangingObject || tileBottomFloor.BlockType == BlockType.DetailTerrian) &&
