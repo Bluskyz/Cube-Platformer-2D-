@@ -123,8 +123,10 @@ namespace JakeJumper
                 Game.Draw(spriteBatch);
                 // JakeJumper.Draw(spriteBatch);
                 // JakeJumperBackround.Draw(spriteBatch);
-                //Menu.Draw(spriteBatch);
+                //Menu.Draw(spriteBatch)w;
                 //Settings.Draw(spriteBatch);  
+
+                
 
                 spriteBatch.End();             
             }

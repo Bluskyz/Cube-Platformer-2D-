@@ -30,8 +30,6 @@ namespace JakeJumper
 
         public void Update(GameTime gameTime, KeyboardState ks)
         {
-
-            
             if (ks.IsKeyDown(Keys.Right))
             {
                 SpriteEffects = SpriteEffects.None;
@@ -81,12 +79,12 @@ namespace JakeJumper
             if (YMovement > 0)
             {
                 int newY = (int)(Position.Y + YMovement + 1);
-                Tile tileTopFloor = GameScreen.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
-                Tile tileBottomFloor = GameScreen.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
+                Tile tileLeftFloor = GameScreen.mapTiles[new Vector2((int)(Position.X), newY)];
+                Tile tileRightFloor = GameScreen.mapTiles[new Vector2((int)(Position.X + 1), newY)];
 
 
-                if ((tileBottomFloor.BlockType == BlockType.Background || tileBottomFloor.BlockType == BlockType.HangingObject || tileBottomFloor.BlockType == BlockType.DetailTerrian) &&
-                    (tileTopFloor.BlockType == BlockType.Background || tileTopFloor.BlockType == BlockType.HangingObject || tileTopFloor.BlockType == BlockType.DetailTerrian))
+                if ((tileLeftFloor.BlockType == BlockType.Background || tileLeftFloor.BlockType == BlockType.HangingObject || tileLeftFloor.BlockType == BlockType.DetailTerrian) &&
+                    (tileRightFloor.BlockType == BlockType.Background || tileRightFloor.BlockType == BlockType.HangingObject || tileRightFloor.BlockType == BlockType.DetailTerrian))
                 {
                     Position.Y += YMovement;
 
@@ -101,12 +99,12 @@ namespace JakeJumper
             else
             {
                 int newY = (int)(Position.Y + YMovement);
-                Tile tileBottomFloor = GameScreen.mapTiles[new Vector2((int)(Position.X + .01f), newY)];
-                Tile tileTopFloor = GameScreen.mapTiles[new Vector2((int)(Position.X - .01f), newY)];
+                Tile tileLeftCeiling = GameScreen.mapTiles[new Vector2((int)(Position.X), newY)];
+                Tile tileRightCeiling = GameScreen.mapTiles[new Vector2((int)(Position.X + 1), newY)];
 
 
-                if ((tileBottomFloor.BlockType == BlockType.Background || tileBottomFloor.BlockType == BlockType.HangingObject || tileBottomFloor.BlockType == BlockType.DetailTerrian) &&
-                    (tileTopFloor.BlockType == BlockType.Background || tileTopFloor.BlockType == BlockType.HangingObject || tileTopFloor.BlockType == BlockType.DetailTerrian))
+                if ((tileLeftCeiling.BlockType == BlockType.Background || tileLeftCeiling.BlockType == BlockType.HangingObject || tileLeftCeiling.BlockType == BlockType.DetailTerrian) &&
+                    (tileRightCeiling.BlockType == BlockType.Background || tileRightCeiling.BlockType == BlockType.HangingObject || tileRightCeiling.BlockType == BlockType.DetailTerrian))
                 {
                     Position.Y += YMovement;
                 }
@@ -123,6 +121,18 @@ namespace JakeJumper
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+            
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X + 2 + _moveSpeed), (int)(Position.Y)),              null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X + 2 + _moveSpeed), (int)(Position.Y) + 1),          null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height) / 2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X - _moveSpeed), (int)(Position.Y)),                  null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X - _moveSpeed), (int)(Position.Y) + 1),              null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+           
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X + 1), (int)(Position.Y + YMovement + 1)), null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height) / 2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X), (int)(Position.Y + YMovement + 1)), null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height) / 2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X + 1), (int)(Position.Y + YMovement)),                   null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+            spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X), (int)(Position.Y + YMovement)),                   null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
         }
     }
 }

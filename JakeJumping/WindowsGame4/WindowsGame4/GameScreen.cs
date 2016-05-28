@@ -142,7 +142,7 @@ namespace JakeJumper
 
             spriteBatch.Begin();
             pauseButton.Draw(spriteBatch);
-            characterDeath.Draw(spriteBatch);
+            characterDeath.Draw(spriteBatch);      
 
             spriteBatch.End();
             base.Draw(spriteBatch);
