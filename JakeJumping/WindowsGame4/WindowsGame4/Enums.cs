@@ -33,6 +33,8 @@ namespace JakeJumper
     public enum BlockType
     {
         Background,
+        Grass,
+        Backdrop,
         Terrian,
         DetailTerrian,
         Lava,

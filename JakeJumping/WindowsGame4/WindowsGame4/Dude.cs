@@ -38,8 +38,8 @@ namespace JakeJumper
                 Tile tileTopRight = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
                 Tile tileBottomRight = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
 
-                if ((tileTopRight.BlockType == BlockType.Background || tileTopRight.BlockType == BlockType.HangingObject || tileTopRight.BlockType == BlockType.DetailTerrian) &&
-                    (tileBottomRight.BlockType == BlockType.Background || tileBottomRight.BlockType == BlockType.HangingObject || tileBottomRight.BlockType == BlockType.DetailTerrian))
+                if ((tileTopRight.BlockType == BlockType.Background || tileTopRight.BlockType == BlockType.HangingObject || tileTopRight.BlockType == BlockType.Backdrop || tileTopRight.BlockType == BlockType.Grass|| tileTopRight.BlockType == BlockType.DetailTerrian) &&
+                    (tileBottomRight.BlockType == BlockType.Background || tileBottomRight.BlockType == BlockType.HangingObject || tileBottomRight.BlockType == BlockType.Backdrop || tileTopRight.BlockType == BlockType.Grass|| tileBottomRight.BlockType == BlockType.DetailTerrian))
                 {
                     Position.X += _moveSpeed;
                 }
@@ -56,8 +56,8 @@ namespace JakeJumper
                 Tile tileTopLeft = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y + .01f))];
                 Tile tileBottomLeft = GameScreen.mapTiles[new Vector2(newX, (int)(Position.Y - .01f) + 1)];
 
-                if ((tileTopLeft.BlockType == BlockType.Background || tileTopLeft.BlockType == BlockType.HangingObject || tileTopLeft.BlockType == BlockType.DetailTerrian) &&
-                    (tileBottomLeft.BlockType == BlockType.Background || tileBottomLeft.BlockType == BlockType.HangingObject || tileBottomLeft.BlockType == BlockType.DetailTerrian))
+                if ((tileTopLeft.BlockType == BlockType.Background || tileTopLeft.BlockType == BlockType.HangingObject || tileTopLeft.BlockType == BlockType.Backdrop || tileTopLeft.BlockType == BlockType.Grass || tileTopLeft.BlockType == BlockType.DetailTerrian) &&
+                    (tileBottomLeft.BlockType == BlockType.Background || tileBottomLeft.BlockType == BlockType.HangingObject || tileBottomLeft.BlockType == BlockType.Backdrop || tileBottomLeft.BlockType == BlockType.Grass || tileBottomLeft.BlockType == BlockType.DetailTerrian))
                 {
                     Position.X -= _moveSpeed;
                 }
@@ -83,8 +83,8 @@ namespace JakeJumper
                 Tile tileRightFloor = GameScreen.mapTiles[new Vector2((int)(Position.X + 1), newY)];
 
 
-                if ((tileLeftFloor.BlockType == BlockType.Background || tileLeftFloor.BlockType == BlockType.HangingObject || tileLeftFloor.BlockType == BlockType.DetailTerrian) &&
-                    (tileRightFloor.BlockType == BlockType.Background || tileRightFloor.BlockType == BlockType.HangingObject || tileRightFloor.BlockType == BlockType.DetailTerrian))
+                if ((tileLeftFloor.BlockType == BlockType.Background || tileLeftFloor.BlockType == BlockType.HangingObject || tileLeftFloor.BlockType == BlockType.Backdrop || tileLeftFloor.BlockType == BlockType.Grass || tileLeftFloor.BlockType == BlockType.DetailTerrian) &&
+                    (tileRightFloor.BlockType == BlockType.Background || tileRightFloor.BlockType == BlockType.HangingObject || tileRightFloor.BlockType == BlockType.Backdrop || tileRightFloor.BlockType == BlockType.Grass || tileRightFloor.BlockType == BlockType.DetailTerrian))
                 {
                     Position.Y += YMovement;
 
@@ -103,8 +103,8 @@ namespace JakeJumper
                 Tile tileRightCeiling = GameScreen.mapTiles[new Vector2((int)(Position.X + 1), newY)];
 
 
-                if ((tileLeftCeiling.BlockType == BlockType.Background || tileLeftCeiling.BlockType == BlockType.HangingObject || tileLeftCeiling.BlockType == BlockType.DetailTerrian) &&
-                    (tileRightCeiling.BlockType == BlockType.Background || tileRightCeiling.BlockType == BlockType.HangingObject || tileRightCeiling.BlockType == BlockType.DetailTerrian))
+                if ((tileLeftCeiling.BlockType == BlockType.Background || tileLeftCeiling.BlockType == BlockType.HangingObject || tileLeftCeiling.BlockType == BlockType.Backdrop || tileLeftCeiling.BlockType == BlockType.Grass || tileLeftCeiling.BlockType == BlockType.DetailTerrian) &&
+                    (tileRightCeiling.BlockType == BlockType.Background || tileRightCeiling.BlockType == BlockType.HangingObject || tileRightCeiling.BlockType == BlockType.Backdrop || tileRightCeiling.BlockType == BlockType.Grass || tileRightCeiling.BlockType == BlockType.DetailTerrian))
                 {
                     Position.Y += YMovement;
                 }

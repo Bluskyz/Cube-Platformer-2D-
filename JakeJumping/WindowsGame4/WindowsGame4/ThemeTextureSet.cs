@@ -40,6 +40,16 @@ namespace JakeJumper
                    new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Biege"), Content.Load<Texture2D>("Biege")),
                                        new QualityControlTexture2D(Content.Load<Texture2D>("Background Brick"), Content.Load<Texture2D>("Background Brick"))));
 
+            ColorToBlock.Add(new Color(177, 0, 0, 255), BlockType.Backdrop);
+            Sets.Add(BlockType.Backdrop,
+                   new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Backdrop"), Content.Load<Texture2D>("Backdrop")),
+                                       new QualityControlTexture2D(Content.Load<Texture2D>("Backdrop"), Content.Load<Texture2D>("Backdrop"))));
+
+            ColorToBlock.Add(new Color(230, 0, 0, 255), BlockType.Grass);
+            Sets.Add(BlockType.Grass,
+                   new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Grass"), Content.Load<Texture2D>("Grass")),
+                                       new QualityControlTexture2D(Content.Load<Texture2D>("Grass"), Content.Load<Texture2D>("Grass"))));
+
             ColorToBlock.Add(new Color(0, 0, 0, 255), BlockType.Terrian); 
             Sets.Add(BlockType.Terrian,
                     new ThemeTextureSet(new QualityControlTexture2D(Content.Load<Texture2D>("Red"), Content.Load<Texture2D>("Red")),
