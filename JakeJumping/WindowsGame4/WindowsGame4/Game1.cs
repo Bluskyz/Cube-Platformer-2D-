@@ -14,10 +14,9 @@ namespace JakeJumper
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-
-        GameState screen = GameState.InGame;
-
+        ScreenState screenState = ScreenState.Menu;
         GameScreen gameScreen;
+        MenuScreen menuScreen;
 
         Sprite Menu;
         Sprite Settings;
@@ -29,8 +28,7 @@ namespace JakeJumper
         SpriteBatch spriteBatch;
 
         Texture2D pixel;
-
-       
+        
 
         public Game1()
         {
@@ -53,6 +51,7 @@ namespace JakeJumper
             ThemeTextureSets.Initialize(Content);
 
             gameScreen = new GameScreen(Content, GraphicsDevice);
+            menuScreen = new MenuScreen(Content, GraphicsDevice);
 
             JakeJumper = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("Jake Jumper"), Content.Load<Texture2D>("Jake Jumper")),
@@ -78,28 +77,28 @@ namespace JakeJumper
                 new QualityControlTexture2D(Content.Load<Texture2D>("Game"), Content.Load<Texture2D>("Game")),
                 new QualityControlTexture2D(Content.Load<Texture2D>("Game"), Content.Load<Texture2D>("Game"))),
                 new Vector2(15), new Vector2(70), Color.White);
-
-           
-
+          
             IsMouseVisible = true;
-
-
-           
-
-
-            pixel = new Texture2D(GraphicsDevice, 1, 1);
-            pixel.SetData<Color>(new Color[] { Color.White });
             
-
-            // Putting It To Game Menu
-            screen = GameState.Menu;
+            pixel = new Texture2D(GraphicsDevice, 1, 1);
+            pixel.SetData<Color>(new Color[] { Color.White });         
         }
 
        
 
         protected override void Update(GameTime gameTime)
         {
-            gameScreen.Update(gameTime);         
+            if (screenState == ScreenState.Menu)
+            {
+                menuScreen.Update(gameTime);
+
+            }
+
+            if (screenState == ScreenState.Game)
+            {
+                gameScreen.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -108,34 +107,17 @@ namespace JakeJumper
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
-            
-
-            if (screen == GameState.InGame)
+            if(screenState == ScreenState.Menu)
             {
-               
-            }
-
-            else if (screen == GameState.Menu)
-            {
-
-                spriteBatch.Begin();// SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, basicEffect);
-
-                Game.Draw(spriteBatch);
-                // JakeJumper.Draw(spriteBatch);
-                // JakeJumperBackround.Draw(spriteBatch);
-                //Menu.Draw(spriteBatch)w;
-                //Settings.Draw(spriteBatch);  
-
+                menuScreen.Draw(spriteBatch);
                 
-
-                spriteBatch.End();             
             }
 
-            gameScreen.Draw(spriteBatch);
-
-
-           
-
+            if(screenState == ScreenState.Game)
+            {
+                gameScreen.Draw(spriteBatch);
+            }
+    
             base.Draw(gameTime);
         }
         

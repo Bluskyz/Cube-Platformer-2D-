@@ -42,4 +42,11 @@ namespace JakeJumper
         Spike,
         HangingObject
     }
+
+    public enum ScreenState
+    {
+        Game,
+        Pause,
+        Menu
+    }
 }

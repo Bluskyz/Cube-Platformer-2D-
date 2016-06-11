@@ -12,7 +12,6 @@ namespace JakeJumper
     class GameScreen : Screen
     {
         public static Dictionary<Vector2, Tile> mapTiles = new Dictionary<Vector2, Tile>();
-
         Matrix view;
         Matrix projection;
         Vector2 cameraPosition = new Vector2(0, 0);
@@ -65,8 +64,6 @@ namespace JakeJumper
                 {
                     Color mapColor = mapColors[x + y * maptexture.Width];
                     Vector2 tilePosition = new Vector2(x, y);
-
-                    //mapBackgrounds.Add(new Sprite(ThemeTextureSets.Sets[BlockType.Background], tilePosition, Vector2.One, Color.White));
                     CreateBlock(mapColor, tilePosition);
                 }
             }
@@ -77,6 +74,7 @@ namespace JakeJumper
             }
 
             int totalPixels = 20;
+            MouseState mouse = Mouse.GetState();
 
             projection = Matrix.CreateOrthographic(GraphicsDevice.Viewport.AspectRatio * totalPixels, totalPixels, 0, 100);
             basicEffect = new BasicEffect(GraphicsDevice);
@@ -116,11 +114,6 @@ namespace JakeJumper
 
             myDude.Update(gameTime, keyboard);
             cameraPosition = new Vector2(myDude.Position.X, myDude.Position.Y);//- (myDude.HitBox.Height * 6));
-
-            if (pauseButton.IsClicked(mouse))
-            {
-                
-            }
             characterDeath.Update(gameTime);
             base.Update(gameTime);
         }
@@ -129,14 +122,14 @@ namespace JakeJumper
         {
             view = Matrix.CreateLookAt(new Vector3(cameraPosition, -10), new Vector3(cameraPosition, 0), new Vector3((float)Math.Cos(cameraRotation), (float)Math.Sin(cameraRotation), 0));
             basicEffect.View = view;
-
+            MouseState mouse = Mouse.GetState();
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, basicEffect);
 
             foreach (Sprite tile in mapTiles.Values)
             {
                 tile.Draw(spriteBatch);
             }
-
+            
             myDude.Draw(spriteBatch);
             spriteBatch.End();
 
