@@ -121,7 +121,7 @@ namespace JakeJumper
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            
+            /*
             spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X + 2 + _moveSpeed), (int)(Position.Y)),              null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
             spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X + 2 + _moveSpeed), (int)(Position.Y) + 1),          null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height) / 2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
 
@@ -133,6 +133,7 @@ namespace JakeJumper
 
             spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X + 1), (int)(Position.Y + YMovement)),                   null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
             spriteBatch.Draw(imageSet.CurrentImage, new Vector2((int)(Position.X), (int)(Position.Y + YMovement)),                   null, Color.Red, 0f, new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height)/2, Vector2.One * .1f / new Vector2(ImageSet.CurrentImage.Width, ImageSet.CurrentImage.Height), SpriteEffects, Layer);
+            */
         }
     }
 }

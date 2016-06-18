@@ -14,7 +14,7 @@ namespace JakeJumper
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        ScreenState screenState = ScreenState.Menu;
+       public static ScreenState screenState = ScreenState.Menu;
         GameScreen gameScreen;
         MenuScreen menuScreen;
 
@@ -91,6 +91,7 @@ namespace JakeJumper
             if (screenState == ScreenState.Menu)
             {
                 menuScreen.Update(gameTime);
+               
 
             }
 
