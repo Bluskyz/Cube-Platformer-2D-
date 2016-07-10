@@ -127,6 +127,8 @@ namespace JakeJumper
                 Game1.screenState = ScreenState.Game;
             }
 
+            if ()
+
             //dropText.Update(gameTime);
 
             base.Update(gameTime);
