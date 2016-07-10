@@ -16,6 +16,7 @@ namespace JakeJumper
     {
         Sprite jakeJumperLogo;
         Sprite jakeJumperBack;
+        Sprite jakeJumperBack2;
         Sprite jakeJumperRoof;
         Sprite jakeJumperRoof2;
         Sprite jakeJumperFloor;
@@ -73,6 +74,12 @@ namespace JakeJumper
                 new Vector2(0, 0), new Vector2(0, 0), Color.White);
             jakeJumperBack.Size = new Vector2(GraphicsDevice.Viewport.Width * 2, GraphicsDevice.Viewport.Height * 1.5f);
 
+            jakeJumperBack2 = new Sprite(new ThemeTextureSet(
+                new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBR"), Content.Load<Texture2D>("JakeJBR")),
+                new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBR"), Content.Load<Texture2D>("JakeJBR"))),
+                new Vector2(0, 0), new Vector2(0, 0), Color.White);
+            jakeJumperBack2.Size = new Vector2(GraphicsDevice.Viewport.Width * 2, GraphicsDevice.Viewport.Height * 1.5f);
+
             jakeJumperRoof = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof")),
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof"))),
@@ -104,6 +111,7 @@ namespace JakeJumper
 
             jakeJumperRoof2.Position = new Vector2(GraphicsDevice.Viewport.Width, jakeJumperRoof2.Position.Y);
             jakeJumperFloor2.Position = new Vector2(GraphicsDevice.Viewport.Width, jakeJumperFloor2.Position.Y);
+            jakeJumperBack2.Position = new Vector2(GraphicsDevice.Viewport.Width, jakeJumperBack2.Position.Y);
 
             //Move both backgrounds towards the left or right at a certain speed (low amount)
 
@@ -118,7 +126,8 @@ namespace JakeJumper
 
         public override void Update(GameTime gameTime)
         {
-
+            /*
+             * 
             ms = Mouse.GetState();
             keyboard = Keyboard.GetState();
 
@@ -127,7 +136,12 @@ namespace JakeJumper
                 Game1.screenState = ScreenState.Game;
             }
 
-            if ()
+            if (jakeJumperFloor.Position.X == 0)
+            {
+                jakeJumperFloor.Position.X 
+            }
+
+            */
 
             //dropText.Update(gameTime);
 
@@ -135,9 +149,11 @@ namespace JakeJumper
 
 
             jakeJumperFloor.Position.X-=4;
-            jakeJumperRoof.Position.X-=4;
+            jakeJumperRoof.Position.X -=4;
             jakeJumperFloor2.Position.X-=4;
             jakeJumperRoof2.Position.X-=4;
+            jakeJumperBack.Position.X-=1;
+            jakeJumperBack2.Position.X-=1;
            
         }
 
@@ -148,7 +164,9 @@ namespace JakeJumper
 
             //jakeJumperBackround.Draw(spriteBatch);
             //jakeGround.Draw(spriteBatch);
+
             jakeJumperBack.Draw(spriteBatch);
+            jakeJumperBack2.Draw(spriteBatch);
 
             jakeJumperFloor.Draw(spriteBatch);
             jakeJumperFloor2.Draw(spriteBatch);
