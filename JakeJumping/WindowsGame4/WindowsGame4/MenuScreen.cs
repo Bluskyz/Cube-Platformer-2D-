@@ -28,6 +28,7 @@ namespace JakeJumper
         //Sprite jakeRoof;
         Sprite play;
         GameScreen gameScreen;
+        GraphicsDevice GraphicsDevice;
 
         AccelDropInFont dropText;
 
@@ -109,8 +110,8 @@ namespace JakeJumper
                 new QualityControlTexture2D(Content.Load<Texture2D>("Play"), Content.Load<Texture2D>("Play"))),
                 new Vector2(470,280), new Vector2(290,250), Color.White);
 
-            jakeJumperRoof2.Position = new Vector2(GraphicsDevice.Viewport.Width, jakeJumperRoof2.Position.Y);
-            jakeJumperFloor2.Position = new Vector2(GraphicsDevice.Viewport.Width, jakeJumperFloor2.Position.Y);
+            jakeJumperRoof2.Position = new Vector2(GraphicsDevice.Viewport.Width + 800, jakeJumperRoof2.Position.Y);
+            jakeJumperFloor2.Position = new Vector2(GraphicsDevice.Viewport.Width + 800, jakeJumperFloor2.Position.Y);
             jakeJumperBack2.Position = new Vector2(GraphicsDevice.Viewport.Width, jakeJumperBack2.Position.Y);
 
             //Move both backgrounds towards the left or right at a certain speed (low amount)
@@ -126,8 +127,8 @@ namespace JakeJumper
 
         public override void Update(GameTime gameTime)
         {
-            /*
-             * 
+            
+             
             ms = Mouse.GetState();
             keyboard = Keyboard.GetState();
 
@@ -136,15 +137,23 @@ namespace JakeJumper
                 Game1.screenState = ScreenState.Game;
             }
 
-            if (jakeJumperFloor.Position.X == 0)
+            
+            if (jakeJumperFloor.Position.X == 800)
             {
-                jakeJumperFloor.Position.X 
+                //jakeJumperFloor.Position.X = GraphicsDevice.Viewport.Width + 800;
+                //jakeJumperFloor2.Position.X = GraphicsDevice.Viewport.Width + 800;
+
+                //jakeJumperFloor.Position.X = 2080;
+                jakeJumperFloor.Position.X = 1280;
             }
 
-            */
+            if(jakeJumperFloor2.Position.X == 800 && jakeJumperFloor.Position.X >= 800)
+            {
+                jakeJumperFloor2.Position.X = 1280;
+            }
+            
 
             //dropText.Update(gameTime);
-
             base.Update(gameTime);
 
 
