@@ -21,6 +21,8 @@ namespace JakeJumper
         Sprite jakeJumperRoof2;
         Sprite jakeJumperFloor;
         Sprite jakeJumperFloor2;
+
+       
         
 
         //Sprite jakeJumperBackround;
@@ -126,9 +128,7 @@ namespace JakeJumper
        
 
         public override void Update(GameTime gameTime)
-        {
-            
-             
+        {           
             ms = Mouse.GetState();
             keyboard = Keyboard.GetState();
 
@@ -136,34 +136,32 @@ namespace JakeJumper
             {
                 Game1.screenState = ScreenState.Game;
             }
-
             
-            if (jakeJumperFloor.Position.X == 800)
-            {
-                //jakeJumperFloor.Position.X = GraphicsDevice.Viewport.Width + 800;
-                //jakeJumperFloor2.Position.X = GraphicsDevice.Viewport.Width + 800;
+            if (jakeJumperFloor.Position.X + jakeJumperFloor.HitBox.Width <= 0)
+                jakeJumperFloor.Position.X = jakeJumperFloor2.Position.X + jakeJumperFloor2.HitBox.Width;
 
-                //jakeJumperFloor.Position.X = 2080;
-                jakeJumperFloor.Position.X = 1280;
-            }
+            if (jakeJumperFloor2.Position.X + jakeJumperFloor2.HitBox.Width <= 0)
+                jakeJumperFloor2.Position.X = jakeJumperFloor.Position.X + jakeJumperFloor.HitBox.Width;
 
-            if(jakeJumperFloor2.Position.X == 800 && jakeJumperFloor.Position.X >= 800)
-            {
-                jakeJumperFloor2.Position.X = 1280;
-            }
-            
+            //if(jakeJumperFloor2.Position.X == 800 && jakeJumperFloor.Position.X >= 800)
+            //{
+            //    jakeJumperFloor2.Position.X = 1280;
+            //}
 
-            //dropText.Update(gameTime);
-            base.Update(gameTime);
+            //if (jakeJumperFloor2.Position.X + jakeJumperFloor2.HitBox.Width <= 0)
+            //{
+            //    jakeJumperFloor2.Position.X = 1280;
+            //}
 
-
+            //dropText.Update(gameTime);          
             jakeJumperFloor.Position.X-=4;
             jakeJumperRoof.Position.X -=4;
             jakeJumperFloor2.Position.X-=4;
             jakeJumperRoof2.Position.X-=4;
             jakeJumperBack.Position.X-=1;
             jakeJumperBack2.Position.X-=1;
-           
+
+            base.Update(gameTime);
         }
 
 
