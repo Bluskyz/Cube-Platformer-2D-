@@ -22,6 +22,7 @@ namespace JakeJumper
         Sprite jakeJumperFloor;
         Sprite jakeJumperFloor2;
 
+
        
         
 
@@ -41,6 +42,7 @@ namespace JakeJumper
         public MenuScreen(ContentManager Content, GraphicsDevice GraphicsDevice)
         {
             MouseState mouse = Mouse.GetState();
+            this.GraphicsDevice = GraphicsDevice;
 
             jakeJumperLogo = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("Jake Jumper"), Content.Load<Texture2D>("Jake Jumper")),
@@ -83,38 +85,48 @@ namespace JakeJumper
                 new Vector2(0, 0), new Vector2(0, 0), Color.White);
             jakeJumperBack2.Size = new Vector2(GraphicsDevice.Viewport.Width * 2, GraphicsDevice.Viewport.Height * 1.5f);
 
+
+
+
+
             jakeJumperRoof = new Sprite(new ThemeTextureSet(
-                new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof")),
-                new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof"))),
-                new Vector2(0, 0), new Vector2(0, 0), Color.White);
+                       new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof")),
+                       new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof"))),
+                       new Vector2(0, 0), new Vector2(800, 450), Color.White);
             jakeJumperRoof.Size = new Vector2(GraphicsDevice.Viewport.Width * 2, GraphicsDevice.Viewport.Height * 1.5f);
 
             jakeJumperRoof2 = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof")),
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRroof"), Content.Load<Texture2D>("JakeJBRroof"))),
-                new Vector2(0, 0), new Vector2(0, 0), Color.White);
+                new Vector2(0, 0), new Vector2(800, 450), Color.White);
             jakeJumperRoof2.Size = new Vector2(GraphicsDevice.Viewport.Width * 2, GraphicsDevice.Viewport.Height * 1.5f);
+
+
 
             jakeJumperFloor = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRfloor"), Content.Load<Texture2D>("JakeJBRfloor")),
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRfloor"), Content.Load<Texture2D>("JakeJBRfloor"))),
-                new Vector2(0, 0), new Vector2(0, 0), Color.White);
+                new Vector2(0, 0), new Vector2(800, 450), Color.White);
             jakeJumperFloor.Size = new Vector2(GraphicsDevice.Viewport.Width * 2, GraphicsDevice.Viewport.Height * 1.5f);
 
             jakeJumperFloor2 = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRfloor"), Content.Load<Texture2D>("JakeJBRfloor")),
                 new QualityControlTexture2D(Content.Load<Texture2D>("JakeJBRfloor"), Content.Load<Texture2D>("JakeJBRfloor"))),
-                new Vector2(0, 0), new Vector2(0, 0), Color.White);
+                new Vector2(0, 0), new Vector2(800, 450), Color.White);
             jakeJumperFloor2.Size = new Vector2(GraphicsDevice.Viewport.Width * 2, GraphicsDevice.Viewport.Height * 1.5f);
+
+
+
+
 
             play = new Sprite(new ThemeTextureSet(
                 new QualityControlTexture2D(Content.Load<Texture2D>("Play"), Content.Load<Texture2D>("Play")),
                 new QualityControlTexture2D(Content.Load<Texture2D>("Play"), Content.Load<Texture2D>("Play"))),
                 new Vector2(470,280), new Vector2(290,250), Color.White);
 
-            jakeJumperRoof2.Position = new Vector2(GraphicsDevice.Viewport.Width + 800, jakeJumperRoof2.Position.Y);
-            jakeJumperFloor2.Position = new Vector2(GraphicsDevice.Viewport.Width + 800, jakeJumperFloor2.Position.Y);
-            jakeJumperBack2.Position = new Vector2(GraphicsDevice.Viewport.Width, jakeJumperBack2.Position.Y);
+            jakeJumperRoof2.Position = new Vector2(jakeJumperRoof.Position.X + jakeJumperRoof.ImageSet.CurrentImage.Width * 2, jakeJumperRoof2.Position.Y);
+            jakeJumperFloor2.Position = new Vector2(jakeJumperFloor.Position.X + jakeJumperFloor.ImageSet.CurrentImage.Width * 2, jakeJumperFloor2.Position.Y);
+            jakeJumperBack2.Position = new Vector2(jakeJumperBack.Position.X + jakeJumperBack.ImageSet.CurrentImage.Width * 2, jakeJumperBack2.Position.Y);
 
             //Move both backgrounds towards the left or right at a certain speed (low amount)
 
@@ -136,22 +148,40 @@ namespace JakeJumper
             {
                 Game1.screenState = ScreenState.Game;
             }
-            
-            if (jakeJumperFloor.Position.X + jakeJumperFloor.HitBox.Width <= 0)
-                jakeJumperFloor.Position.X = jakeJumperFloor2.Position.X + jakeJumperFloor2.HitBox.Width;
 
-            if (jakeJumperFloor2.Position.X + jakeJumperFloor2.HitBox.Width <= 0)
-                jakeJumperFloor2.Position.X = jakeJumperFloor.Position.X + jakeJumperFloor.HitBox.Width;
+            if (jakeJumperFloor.Position.X + (jakeJumperFloor.ImageSet.CurrentImage.Width * 2) <= 0)
+            {
+                jakeJumperFloor.Position.X = jakeJumperFloor2.Position.X + jakeJumperFloor2.ImageSet.CurrentImage.Width * 2;
+            }
 
-            //if(jakeJumperFloor2.Position.X == 800 && jakeJumperFloor.Position.X >= 800)
-            //{
-            //    jakeJumperFloor2.Position.X = 1280;
-            //}
+            if (jakeJumperFloor2.Position.X + (jakeJumperFloor2.ImageSet.CurrentImage.Width * 2) <= 0)
+            {
+                jakeJumperFloor2.Position.X = jakeJumperFloor.Position.X + jakeJumperFloor.ImageSet.CurrentImage.Width * 2;
+            }
 
-            //if (jakeJumperFloor2.Position.X + jakeJumperFloor2.HitBox.Width <= 0)
-            //{
-            //    jakeJumperFloor2.Position.X = 1280;
-            //}
+            if (jakeJumperRoof.Position.X + (jakeJumperRoof.ImageSet.CurrentImage.Width * 2) <= 0)
+            {
+                jakeJumperRoof.Position.X = jakeJumperRoof2.Position.X + jakeJumperRoof2.ImageSet.CurrentImage.Width * 2;
+            }
+
+            if (jakeJumperRoof2.Position.X + (jakeJumperRoof2.ImageSet.CurrentImage.Width * 2) <= 0)
+            {
+                jakeJumperRoof2.Position.X = jakeJumperRoof.Position.X + jakeJumperRoof.ImageSet.CurrentImage.Width * 2;
+            }
+
+
+
+            if (jakeJumperBack.Position.X + (jakeJumperBack.ImageSet.CurrentImage.Width * 2) <= 0)
+            {
+                jakeJumperBack.Position.X = jakeJumperBack2.Position.X + jakeJumperBack2.ImageSet.CurrentImage.Width * 2;
+            }
+
+            if (jakeJumperBack2.Position.X + (jakeJumperBack2.ImageSet.CurrentImage.Width * 2) <= 0)
+            {
+                jakeJumperBack2.Position.X = jakeJumperBack.Position.X + jakeJumperBack.ImageSet.CurrentImage.Width * 2;
+            }
+
+
 
             //dropText.Update(gameTime);          
             jakeJumperFloor.Position.X-=4;
