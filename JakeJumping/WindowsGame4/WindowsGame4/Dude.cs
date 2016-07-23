@@ -13,7 +13,7 @@ namespace JakeJumper
         KeyboardState _lastks;
         private float _moveSpeed = .20f;
         float YMovement = 0;
-
+        
         public bool canJump = false;
 
         int jumpCount = 0;
@@ -76,12 +76,24 @@ namespace JakeJumper
 
             YMovement = MathHelper.Clamp(YMovement, -.5f, .5f);
 
+
+
             if (YMovement > 0)
             {
                 int newY = (int)(Position.Y + YMovement + 1);
                 Tile tileLeftFloor = GameScreen.mapTiles[new Vector2((int)(Position.X), newY)];
                 Tile tileRightFloor = GameScreen.mapTiles[new Vector2((int)(Position.X + 1), newY)];
 
+                Tile tileBelow = GameScreen.mapTiles[new Vector2((int)Position.X, (int)(Math.Round(Position.Y + 0.99f)))];
+
+                if (tileBelow.BlockType == BlockType.Spike)//tileLeftFloor.BlockType == BlockType.Spike || tileRightFloor.BlockType == BlockType.Spike)
+                {
+                    //Tile GameScreen.mapTiles[tileLeftFloor.Position + new Vector2(0, 0.01f)];
+                    //die x_x
+                    GameScreen.dead = true;
+                    
+                    
+                }
 
                 if ((tileLeftFloor.BlockType == BlockType.Background || tileLeftFloor.BlockType == BlockType.HangingObject || tileLeftFloor.BlockType == BlockType.Backdrop || tileLeftFloor.BlockType == BlockType.Grass || tileLeftFloor.BlockType == BlockType.DetailTerrian) &&
                     (tileRightFloor.BlockType == BlockType.Background || tileRightFloor.BlockType == BlockType.HangingObject || tileRightFloor.BlockType == BlockType.Backdrop || tileRightFloor.BlockType == BlockType.Grass || tileRightFloor.BlockType == BlockType.DetailTerrian))
@@ -95,6 +107,9 @@ namespace JakeJumper
                     jumpCount = 0;
                     canJump = true;
                 }
+
+
+                
             }
             else
             {
@@ -107,6 +122,10 @@ namespace JakeJumper
                     (tileRightCeiling.BlockType == BlockType.Background || tileRightCeiling.BlockType == BlockType.HangingObject || tileRightCeiling.BlockType == BlockType.Backdrop || tileRightCeiling.BlockType == BlockType.Grass || tileRightCeiling.BlockType == BlockType.DetailTerrian))
                 {
                     Position.Y += YMovement;
+                }
+                else if (tileLeftCeiling.BlockType == BlockType.Spike || tileRightCeiling.BlockType == BlockType.Spike)
+                {
+                    //die
                 }
                 else
                 {

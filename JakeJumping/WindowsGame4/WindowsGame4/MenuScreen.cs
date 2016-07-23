@@ -22,10 +22,7 @@ namespace JakeJumper
         Sprite jakeJumperFloor;
         Sprite jakeJumperFloor2;
 
-
-       
         
-
         //Sprite jakeJumperBackround;
         //Sprite jakeGround;
         //Sprite jakeRoof;
@@ -127,11 +124,7 @@ namespace JakeJumper
             jakeJumperRoof2.Position = new Vector2(jakeJumperRoof.Position.X + jakeJumperRoof.ImageSet.CurrentImage.Width * 2, jakeJumperRoof2.Position.Y);
             jakeJumperFloor2.Position = new Vector2(jakeJumperFloor.Position.X + jakeJumperFloor.ImageSet.CurrentImage.Width * 2, jakeJumperFloor2.Position.Y);
             jakeJumperBack2.Position = new Vector2(jakeJumperBack.Position.X + jakeJumperBack.ImageSet.CurrentImage.Width * 2, jakeJumperBack2.Position.Y);
-
-            //Move both backgrounds towards the left or right at a certain speed (low amount)
-
-            //Use an if statement and check if the right side of either backgrounds hits 0, move that background's x to GraphicsDevice.Viewport.Width
-
+            
             //dropText = new AccelDropInFont(Content.Load<SpriteFont>("SpriteFont1"), new Vector2(0, 0), new Vector2(0, GraphicsDevice.Viewport.Height - 50), new Vector2(0, 3), "SUH DOOD", Color.Blue, new Vector2(0, 2));
             //MESS WITH THE LIBRARY FONTS, FIND OUT HOW TO GAIN ACCESS OF STATE CHANGES, AND TRY TO GET IT TO REPEAT THE LAST FEW MOMENTS OF THE DROP REPEATEDLY AS IF
             //THE TEXT IS BOUNCING <(^_^)>(#) WAFFLE
@@ -148,6 +141,8 @@ namespace JakeJumper
             {
                 Game1.screenState = ScreenState.Game;
             }
+
+
 
             if (jakeJumperFloor.Position.X + (jakeJumperFloor.ImageSet.CurrentImage.Width * 2) <= 0)
             {
