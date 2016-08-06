@@ -37,22 +37,22 @@ namespace JakeJumper
                new QualityControlTexture2D(Content.Load<Texture2D>("Explosion"), Content.Load<Texture2D>("Explosion"))),
                new Vector2(100), new Vector2(100), Color.White);
 
-            //characterdeath.addframe(new rectangle(13, 13, 6, 6));
-            //characterdeath.addframe(new rectangle(44, 12, 8, 8));
-            //characterdeath.addframe(new rectangle(75, 11, 10, 10));
-            //characterdeath.addframe(new rectangle(106, 10, 12, 12));
-            //characterdeath.addframe(new rectangle(9, 41, 14, 14));
-            //characterdeath.addframe(new rectangle(40, 40, 16, 16));
-            //characterdeath.addframe(new rectangle(71, 39, 18, 18));
-            //characterdeath.addframe(new rectangle(102, 38, 20, 20));
-            //characterdeath.addframe(new rectangle(5, 69, 22, 22));
-            //characterdeath.addframe(new rectangle(35, 67, 25, 25));
-            //characterdeath.addframe(new rectangle(67, 67, 26, 26));
-            //characterdeath.addframe(new rectangle(98, 66, 28, 28));
-            //characterdeath.addframe(new rectangle(1, 97, 30, 30));
-            //characterdeath.addframe(new rectangle(34, 98, 30, 30));
-            //characterdeath.addframe(new rectangle(71, 103, 25, 25));
-            //characterdeath.addframe(new rectangle(113, 113, 15, 15));
+            //characterdeath.AddFrame(new Rectangle(13, 13, 6, 6));
+            //characterdeath.AddFrame(new Rectangle(44, 12, 8, 8));
+            //characterdeath.AddFrame(new Rectangle(75, 11, 10, 10));
+            //characterdeath.AddFrame(new Rectangle(106, 10, 12, 12));
+            //characterdeath.AddFrame(new Rectangle(9, 41, 14, 14));
+            //characterdeath.AddFrame(new Rectangle(40, 40, 16, 16));
+            //characterdeath.AddFrame(new Rectangle(71, 39, 18, 18));
+            //characterdeath.AddFrame(new Rectangle(102, 38, 20, 20));
+            //characterdeath.AddFrame(new Rectangle(5, 69, 22, 22));
+            //characterdeath.AddFrame(new Rectangle(35, 67, 25, 25));
+            //characterdeath.AddFrame(new Rectangle(67, 67, 26, 26));
+            //characterdeath.AddFrame(new Rectangle(98, 66, 28, 28));
+            //characterdeath.AddFrame(new Rectangle(1, 97, 30, 30));
+            //characterdeath.AddFrame(new Rectangle(34, 98, 30, 30));
+            //characterdeath.AddFrame(new Rectangle(71, 103, 25, 25));
+            //characterdeath.AddFrame(new Rectangle(113, 113, 15, 15));
 
             maptexture = Content.Load<Texture2D>("Cubeverse");
 
@@ -131,11 +131,12 @@ namespace JakeJumper
                 characterdeath.AddFrame(new Rectangle(34, 98, 30, 30));
                 characterdeath.AddFrame(new Rectangle(71, 103, 25, 25));
                 characterdeath.AddFrame(new Rectangle(113, 113, 15, 15));
+                characterdeath.Update(gameTime);
             }
 
             myDude.Update(gameTime, keyboard);
             cameraPosition = new Vector2(myDude.Position.X, myDude.Position.Y);//- (myDude.HitBox.Height * 6));
-            characterdeath.Update(gameTime);
+            //characterdeath.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -154,9 +155,15 @@ namespace JakeJumper
             myDude.Draw(spriteBatch);
             spriteBatch.End();
 
+            
+
             spriteBatch.Begin();
             pauseButton.Draw(spriteBatch);
-            characterdeath.Draw(spriteBatch);      
+            //characterdeath.Draw(spriteBatch);
+            if (dead == true)
+            {
+                characterdeath.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
             base.Draw(spriteBatch);

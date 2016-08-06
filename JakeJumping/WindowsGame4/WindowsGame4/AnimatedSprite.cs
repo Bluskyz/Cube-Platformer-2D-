@@ -52,7 +52,7 @@ namespace JakeJumper
                         IsVisible = false;
                     }
 
-                    sourceRectangle = _frames[_index];
+                   // sourceRectangle = _frames[_index];
                 }
             }
 
